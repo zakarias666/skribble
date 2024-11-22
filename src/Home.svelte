@@ -17,7 +17,7 @@
 </script>
 
 <home>
-    <img src="/uploads/logo.png" id="home-logo" alt>
+    <img src="/skribble/uploads/logo.png" id="home-logo" alt>
 
     <room-container>
         {#each Array.from({ length: parseInt($global.rooms) }, (_, i) => i + 1) as room}

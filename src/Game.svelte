@@ -65,13 +65,13 @@
 
         if (!currentUser.brush) {
             console.error("You are not allowed to draw.");
-            return; // Stop, hvis brugeren ikke har børsterettigheder
+            return;
         }
 
         drawing = true;
 
         drawings.update((current) => {
-            current.push([]); // Start en ny streg
+            current.push([]);
             return current;
         });
 
@@ -89,7 +89,7 @@
 
         const data = { x: event.offsetX, y: event.offsetY };
         drawings.update((current) => {
-            current[current.length - 1].push(data); // Tilføj punkt til den nyeste streg
+            current[current.length - 1].push(data);
             return current;
         });
 
@@ -112,8 +112,8 @@
             import("./websocketStore.js").then(({ sendMessage }) =>
                 sendMessage('guess', {
                     id: $global.gameid,
-                    username: $global.username, // Send brugernavnet
-                    guess: guess.trim() // Send gættet
+                    username: $global.username,
+                    guess: guess.trim()
                 })
             );
         } else {

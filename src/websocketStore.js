@@ -1,14 +1,13 @@
 import { writable } from "svelte/store";
 import { global } from "./store";
 
-// Writable stores til at dele data
 export const drawings = writable([]);
 export const guesses = writable([]);
 
 let socket = null;
 
 export function setupWebSocket() {
-    if (!socket) { // Sørg for, at WebSocket kun oprettes én gang
+    if (!socket) {
         socket = new WebSocket("ws://localhost:3000");
 
         socket.onopen = () => {
@@ -23,20 +22,20 @@ export function setupWebSocket() {
 
             } else if (message.type === "newStroke") {
                 drawings.update((current) => {
-                    current.push([]); // Start en ny streg
+                    current.push([]);
                     return current;
                 });
             } else if (message.type === "draw") {
                 drawings.update((current) => {
-                    current[current.length - 1].push(message.data.point); // Tilføj punkt til den nyeste streg
+                    current[current.length - 1].push(message.data.point);
                     return current;
                 });
             } else if (message.type === "drawdata") {
-                drawings.set(message.data); // Initialiser eller ryd tegnebrættet
+                drawings.set(message.data);
             } else if (message.type === "guess") {
-                guesses.update((current) => [...current, message.data]); // Tilføj objektet
+                guesses.update((current) => [...current, message.data]);
             } else if (message.type === "chatdata") {
-                guesses.set(message.data.filter(Boolean)); // Initialiser eller ryd chatten
+                guesses.set(message.data.filter(Boolean));
             } else if (message.type === "roomcount") {
                 global.update((current) => {
                     return { ...current, rooms: message.data };
@@ -48,7 +47,7 @@ export function setupWebSocket() {
             } else if (message.type === "roomdata") {
                 global.update((current) => {
                     console.log("Updating roomdata with:", message.data);
-                    return { ...current, roomdata: JSON.stringify(message.data) }; // Gem som array
+                    return { ...current, roomdata: JSON.stringify(message.data) };
                 });
             } else if (message.type === "start") {
                 console.log("Game started in room:", message.data.id);
@@ -65,7 +64,7 @@ export function setupWebSocket() {
 
         socket.onclose = () => {
             console.log("WebSocket disconnected");
-            socket = null; // Nulstil socket, så vi kan genoprette forbindelsen om nødvendigt
+            socket = null;
         };
 
         socket.onerror = (error) => {

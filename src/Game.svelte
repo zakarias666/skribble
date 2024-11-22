@@ -10,16 +10,6 @@
 
     let currentWord = null;
 
-    $: {
-        if ($global.roomdata) {
-            const roomdata = JSON.parse($global.roomdata);
-            const room = roomdata[$global.gameid - 1];
-            currentWord = room?.players.find(player => player.brush)?.username === $global.username
-                ? room.currentWord
-                : null;
-        }
-    }
-
     $drawings;
     $guesses;
 
@@ -35,9 +25,12 @@
         } else {
             data = roomdata[$global.gameid - 1] || { players: [] };
         }
-        
         console.log("Changed roomdata to", data);
+        currentUser = data.players.find(player => player.username === $global.username);
+        currentWord = data.currentWord;
+        console.log(currentUser)
     }
+
 
     function drawOnCanvas(strokes) {
         if (!ctx) return;
@@ -59,9 +52,6 @@
         drawOnCanvas($drawings);
     }
 
-    $: {
-        currentUser = data.players.find(player => player.username === $global.username);
-    }
     function startDrawing(event) {
         if (!data) {
             console.error("Room data or players are undefined. Cannot draw.");
@@ -142,7 +132,7 @@
 <main>
     <div id="game">
         <header>
-            {#if currentWord}
+            {#if currentUser?.brush}
                 <div id="word">
                     <strong>{currentWord}</strong>
                 </div>

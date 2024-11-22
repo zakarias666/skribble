@@ -145,7 +145,7 @@
                     <div id="player-name">{player.username}</div>
                     <div id="player-score">Score: {player.score}</div>
                     {#if player.brush === true}
-                    <img src="/uploads/brush.png" id="brush" alt>
+                    <img src="/skribble/uploads/brush.png" id="brush" alt>
                     {/if}
                 </div>
             {/each}

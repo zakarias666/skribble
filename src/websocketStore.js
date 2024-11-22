@@ -18,7 +18,10 @@ export function setupWebSocket() {
         socket.onmessage = (event) => {
             const message = JSON.parse(event.data);
         
-            if (message.type === "newStroke") {
+            if (message.type === "correctGuess") {
+                console.log(`${message.data.username} guessed the word correctly! The word was: ${message.data.word}`);
+
+            } else if (message.type === "newStroke") {
                 drawings.update((current) => {
                     current.push([]); // Start en ny streg
                     return current;

@@ -9,7 +9,7 @@ let socket = null;
 
 export function setupWebSocket() {
     if (!socket) { // Sørg for, at WebSocket kun oprettes én gang
-        socket = new WebSocket("ws://localhost:3000");
+        socket = new WebSocket("wss://hetzner-dev-ws.ipwsystems.dk:8000");
 
         socket.onopen = () => {
             console.log("WebSocket connected");

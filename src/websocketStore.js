@@ -8,7 +8,7 @@ let socket = null;
 
 export function setupWebSocket() {
     if (!socket) {
-        socket = new WebSocket("ws://localhost:3000");
+        socket = new WebSocket("https://skribble-server-ffhx.onrender.com");
 
         socket.onopen = () => {
             console.log("WebSocket connected");

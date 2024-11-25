@@ -6,5 +6,6 @@ export const global = writable({
     rooms: "",
     roomdata: "",
     roommax: "",
+    roundtime: "",
     ingame: false,
 });

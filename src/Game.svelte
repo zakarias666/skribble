@@ -6,7 +6,8 @@
     let canvas;
     let ctx;
     let drawing = false;
-    let currentUser = null
+    let currentUser = null;
+    let time = null;
 
     let currentWord = null;
 
@@ -29,6 +30,7 @@
         currentUser = data.players.find(player => player.username === $global.username);
         currentWord = data.currentWord;
         console.log(currentUser)
+
     }
 
 
@@ -80,10 +82,6 @@
         );
     }
 
-
-
-
-
     function draw(event) {
         if (!drawing) return;
 
@@ -98,14 +96,9 @@
         );
     }
 
-
-
-
     function stopDrawing() {
         drawing = false;
     }
-
-
 
     function sendGuess(guess) {
         if (guess.trim()) {
@@ -132,6 +125,7 @@
 <main>
     <div id="game">
         <header>
+            <div id="counter">{time}</div>
             {#if currentUser?.brush}
                 <div id="word">
                     <strong>{currentWord}</strong>
@@ -315,5 +309,16 @@
     }
     #word {
         color: white;
+    }
+
+    #counter {
+        font-size: 30px;
+        color: white;
+        font-weight: bolder;
+
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        left: 15px;
     }
 </style>

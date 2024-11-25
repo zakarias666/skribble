@@ -49,6 +49,10 @@ export function setupWebSocket() {
                     console.log("Updating roomdata with:", message.data);
                     return { ...current, roomdata: JSON.stringify(message.data) };
                 });
+            } else if (message.type === "roundtime") {
+                global.update((current) => {
+                    return { ...current, roundtime: message.data };
+                });
             } else if (message.type === "start") {
                 console.log("Game started in room:", message.data.id);
                 drawings.set([]);
